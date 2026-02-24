@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Instagram, TreePalm, Search, LayoutGrid, List } from "lucide-react";
+import {
+  Instagram,
+  TreePalm,
+  Search,
+  LayoutGrid,
+  List,
+  Dices,
+} from "lucide-react";
 import { senorasData } from "./data/senoras";
 import SenoraCard from "./components/SenoraCard";
 import SenoraModal from "./components/SenoraModal";
@@ -25,6 +32,11 @@ function App() {
     const scrollContainer = document.querySelector("main");
     if (scrollContainer)
       scrollContainer.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleRandomSenora = () => {
+    const randomIndex = Math.floor(Math.random() * senorasData.length);
+    setSelectedSenora(senorasData[randomIndex]);
   };
 
   return (
@@ -59,8 +71,8 @@ function App() {
       </nav>
 
       {/* 2. HEADER Y BUSCADOR FIJOS */}
-      <div className="pt-28 flex-shrink-0 bg-[#1a0524] z-50">
-        <header className="text-center mb-8 px-4">
+      <div className="pt-24 flex-shrink-0 bg-[#1a0524] z-50">
+        <header className="text-center mb-6 px-4">
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-[500] uppercase leading-[0.8] tracking-tighter">
             LA AUTÉNTICA <br />
             <span className="text-[#ff007a] text-3xl sm:text-5xl md:text-6xl font-[900]">
@@ -69,28 +81,44 @@ function App() {
           </h1>
         </header>
 
-        <div className="flex items-center gap-3 mb-6 max-w-2xl mx-auto px-4">
+        <div className="flex items-center gap-2 mb-4 max-w-xl mx-auto px-4">
+          {/* BUSCADOR */}
           <div className="relative flex-grow group">
             <Search
-              className="absolute left-5 top-1/2 -translate-y-1/2 text-white/30 group-focus-within:text-[#ff007a]"
-              size={20}
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30 group-focus-within:text-[#ff007a] transition-colors"
+              size={16}
             />
             <input
               type="text"
-              placeholder="Busca por apodo..."
+              placeholder="Buscar..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-full pl-14 pr-6 py-4 outline-none focus:border-[#ff007a] transition-all font-bold uppercase text-sm tracking-widest font-['Montserrat']"
+              className="w-full bg-white/5 border border-white/10 rounded-full pl-11 pr-4 py-2.5 outline-none focus:border-[#ff007a] focus:bg-white/10 transition-all font-bold uppercase text-[11px] tracking-widest font-['Montserrat'] placeholder:text-white/20"
             />
           </div>
+
+          {/* BOTÓN ALEATORIO */}
+          <button
+            onClick={handleRandomSenora}
+            className="p-2.5 bg-white/5 border border-white/10 rounded-full hover:bg-[#ff007a] hover:border-[#ff007a] transition-all flex items-center justify-center text-white/50 hover:text-white group/btn"
+            title="Señora aleatoria"
+          >
+            <Dices
+              size={18}
+              strokeWidth={2.5}
+              className="group-hover/btn:rotate-12 transition-transform"
+            />
+          </button>
+
+          {/* BOTÓN TOGGLE VISTA */}
           <button
             onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
-            className="p-4 bg-white/5 border border-white/10 rounded-full hover:bg-[#ff007a] transition-all"
+            className="p-2.5 bg-white/5 border border-white/10 rounded-full hover:bg-[#ff007a] hover:border-[#ff007a] transition-all flex items-center justify-center text-white/50 hover:text-white"
           >
             {viewMode === "grid" ? (
-              <List size={24} />
+              <List size={18} strokeWidth={2.5} />
             ) : (
-              <LayoutGrid size={24} />
+              <LayoutGrid size={18} strokeWidth={2.5} />
             )}
           </button>
         </div>
@@ -143,17 +171,22 @@ function App() {
                     <div
                       key={`list-${senora.id}`}
                       onClick={() => setSelectedSenora(senora)}
-                      className="group flex justify-between items-center py-4 border-b border-white/[0.03] cursor-pointer hover:bg-white/[0.02] px-4 transition-all"
+                      className="group flex justify-between items-center py-4 border-b border-white/[0.05] cursor-pointer hover:bg-white/[0.03] px-4 transition-all"
                     >
                       <div className="flex items-baseline gap-4">
-                        <span className="text-[9px] font-black text-white/10 w-4">
+                        {/* Inicial: Sigue siendo discreta pero un poco más visible */}
+                        <span className="text-[10px] font-black text-white/20 w-4 transition-colors group-hover:text-[#ff007a]/40">
                           {senora.nickname.charAt(0)}
                         </span>
-                        <span className="text-lg font-bold uppercase tracking-tighter text-white/80 group-hover:text-[#ff007a] transition-colors">
+
+                        {/* APODO: Ahora con 70% de opacidad para que se lea perfectamente */}
+                        <span className="text-lg font-bold uppercase tracking-tighter text-white/70 group-hover:text-[#ff007a] transition-all duration-300">
                           {senora.nickname}
                         </span>
                       </div>
-                      <span className="text-[9px] font-medium uppercase tracking-widest text-white/10 group-hover:text-white/30 transition-colors">
+
+                      {/* NOMBRE REAL: Un punto medio para que acompañe sin estorbar */}
+                      <span className="text-[10px] font-medium uppercase tracking-widest text-white/30 group-hover:text-white/60 transition-colors">
                         {senora.realName}
                       </span>
                     </div>
