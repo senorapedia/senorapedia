@@ -38,10 +38,11 @@ const SenoraModal = ({ senora, isOpen, onClose }) => {
         >
           {/* 1. PARTE FIJA: Imagen y Nombres */}
           <div className="p-6 md:p-10 pb-2 flex-shrink-0">
-            <div className="relative h-[160px] w-full bg-[#4e1d6b] rounded-[25px] mb-12 mt-2 flex items-center justify-center overflow-visible">
+            {/* Contenedor del rectángulo lila con margen superior para dejar espacio a la cabeza */}
+            <div className="relative h-[140px] w-full bg-[#4e1d6b] rounded-[25px] mb-8 mt-10 flex items-center justify-center overflow-visible">
               <img
                 src={senora.img}
-                className="absolute -bottom-6 w-full h-[200px] object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]"
+                className="absolute -top-10 w-full h-[180px] object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]"
                 alt={senora.nickname}
               />
             </div>
