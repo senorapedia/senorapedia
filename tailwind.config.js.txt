@@ -1,0 +1,21 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        'lila-oscuro': '#2d0a3d',
+        'fucsia': '#ff007a',
+        'lila-suave': '#4e1d6b',
+        'bg-body': '#1a0524',
+      },
+      borderRadius: {
+        '30': '30px',
+      }
+    },
+  },
+  plugins: [],
+}
