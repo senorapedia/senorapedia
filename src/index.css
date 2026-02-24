@@ -16,3 +16,31 @@ body {
   background-color: var(--color-bg-body);
   color: white;
 }
+/* Scrollbar Minimalista Unificada */
+*::-webkit-scrollbar {
+  width: 4px; /* Finísima */
+}
+/* Ajuste para que la barra no pise las esquinas redondeadas */
+*::-webkit-scrollbar-track {
+  background: transparent;
+  /* El margin vertical evita que la barra llegue a las curvas */
+  margin-top: 30px;
+  margin-bottom: 30px;
+  /* El margin horizontal la separa un poco del borde derecho */
+  margin-right: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 0, 122, 0.2); /* Fucsia muy discreto */
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 0, 122, 0.5); /* Brilla solo al tocarla */
+}
+
+/* Soporte Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 0, 122, 0.2) transparent;
+}
